@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public int health;
 
     private Vector3 moveDirection;
+    public float dist;
 
     void Awake(){
         Instance = this;
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour
     void RotatePlayerTowardsMouse()
     {
         Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = 10f;
+        mousePosition.z = dist;
         Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         Vector3 direction = (worldMousePosition - transform.position).normalized;
         direction.y = 0f;
