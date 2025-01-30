@@ -3,15 +3,16 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float lifetime = 20f;
+    public GameObject hitParticle;
 
     void Start()
     {
-        Destroy(gameObject, lifetime);  // Destroy after a set time
+        Destroy(gameObject, lifetime);
     }
 
     void OnCollisionEnter(Collision other)
     {
-        // Destroy the bullet on impact with any object
+        Instantiate(hitParticle, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

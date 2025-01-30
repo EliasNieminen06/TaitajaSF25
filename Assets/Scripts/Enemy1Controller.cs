@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class Enemy1Controller : MonoBehaviour
 {
-    public Transform player; // Reference to the player's Transform
-    public float moveSpeed = 5f; // Speed at which the enemy moves toward the player
-    public float explosionRadius = 5f; // Radius of the explosion
-    public float maxDamage = 5f; // Maximum damage the explosion can deal
-    public float minDamage = 0f; // Minimum damage at the furthest radius of the explosion
+    public Transform player;
+    public float moveSpeed = 5f;
+    public float explosionRadius = 5f;
+    public float maxDamage = 5f;
+    public float minDamage = 0f;
     public GameObject explodeParticle;
+    public int health;
 
     private void Start()
     {
@@ -17,6 +18,9 @@ public class Enemy1Controller : MonoBehaviour
     private void Update()
     {
         MoveTowardsPlayer();
+        if(health <= 0){
+            TriggerExplosion();
+        }
     }
 
     private void MoveTowardsPlayer()
@@ -25,6 +29,7 @@ public class Enemy1Controller : MonoBehaviour
         {
             Vector3 direction = (player.position - transform.position).normalized;
             transform.position += direction * moveSpeed * Time.deltaTime;
+            transform.LookAt(player);
         }
     }
     public void TriggerExplosion()
@@ -47,10 +52,11 @@ public class Enemy1Controller : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Bullet")){
-            TriggerExplosion();
+            health--;
         }
         if (collision.gameObject.CompareTag("Player")){
             PlayerController.Instance.TakeDamage(5);
+            Instantiate(explodeParticle, transform.position, Quaternion.identity);
             Destroy(gameObject); 
         }
     }
