@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Die(){
+        AudioManager.Instance.Fall();
         SceneManager.LoadScene("MenuScene");
     }
 }
