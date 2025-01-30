@@ -90,8 +90,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void TakeDamage(int amount){
-        health -= amount;
-        Instantiate(hitParticle, transform.position, Quaternion.identity);
+        if (amount > 0){
+            health -= amount;
+            Instantiate(hitParticle, transform.position, Quaternion.identity, transform);
+        }
     }
 
     public void Die(){
