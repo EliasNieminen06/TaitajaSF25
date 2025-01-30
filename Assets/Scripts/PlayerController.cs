@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public GameObject hitParticle;
     public int health;
+    public int score;
 
     private Vector3 moveDirection;
     public float dist;
@@ -106,6 +107,9 @@ public class PlayerController : MonoBehaviour
 
     public void Die(){
         AudioManager.Instance.Fall();
+        if (PlayerPrefs.GetInt("score") < score){
+            PlayerPrefs.SetInt("score", score);
+        }
         SceneManager.LoadScene("MenuScene");
     }
 }

@@ -20,6 +20,7 @@ public class Enemy1Controller : MonoBehaviour
         MoveTowardsPlayer();
         if(health <= 0){
             TriggerExplosion();
+            PlayerController.Instance.score += 20;
         }
     }
 

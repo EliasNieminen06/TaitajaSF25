@@ -21,6 +21,7 @@ public class Enemy2Controller : MonoBehaviour
         MoveTowardsPlayer();
         if(health <= 0){
             Destroy(gameObject);
+            PlayerController.Instance.score += 10;
         }
     }
 
