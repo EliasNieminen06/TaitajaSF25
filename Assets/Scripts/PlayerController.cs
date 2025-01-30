@@ -88,12 +88,14 @@ public class PlayerController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, gunTransform.position, gunTransform.rotation);
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         bulletRb.linearVelocity = gunTransform.forward * bulletSpeed;
+        AudioManager.Instance.Shoot();
     }
 
     public void TakeDamage(int amount){
         if (amount > 0){
             health -= amount;
             Instantiate(hitParticle, transform.position, Quaternion.identity, transform);
+            AudioManager.Instance.Damage();
         }
     }
 

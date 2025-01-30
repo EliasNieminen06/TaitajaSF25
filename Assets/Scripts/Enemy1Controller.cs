@@ -46,6 +46,7 @@ public class Enemy1Controller : MonoBehaviour
             }
         }
         Instantiate(explodeParticle, transform.position, Quaternion.identity);
+        AudioManager.Instance.Explode();
         Destroy(gameObject); 
     }
 
@@ -53,6 +54,7 @@ public class Enemy1Controller : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet")){
             health--;
+            AudioManager.Instance.Hit();
         }
         if (collision.gameObject.CompareTag("Player")){
             PlayerController.Instance.TakeDamage(5);

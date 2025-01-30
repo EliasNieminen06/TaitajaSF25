@@ -44,6 +44,7 @@ public class Enemy2Controller : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet")){
             health--;
+            AudioManager.Instance.Hit();
         }
         if (collision.gameObject.CompareTag("Player")){
             PlayerController.Instance.TakeDamage(5);
