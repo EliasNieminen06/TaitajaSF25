@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 moveDirection;
     public float dist;
+    public Animator anim;
 
     void Awake(){
         Instance = this;
@@ -51,10 +52,13 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
-        if (moveDirection.magnitude >= 0.1f)
-        {
+        if (moveDirection.magnitude >= 0.1f){
             Vector3 targetPosition = rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime;
             rb.MovePosition(targetPosition);
+            anim.SetBool("isrunning", true);
+        }
+        else{
+            anim.SetBool("isrunning", false);
         }
     }
 
@@ -85,10 +89,11 @@ public class PlayerController : MonoBehaviour
 
     void FireBullet()
     {
+        anim.SetTrigger("shoot");
+        AudioManager.Instance.Shoot();
         GameObject bullet = Instantiate(bulletPrefab, gunTransform.position, gunTransform.rotation);
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         bulletRb.linearVelocity = gunTransform.forward * bulletSpeed;
-        AudioManager.Instance.Shoot();
     }
 
     public void TakeDamage(int amount){
